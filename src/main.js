@@ -30,6 +30,7 @@ async function onSearchFormSubmit(event) {
       position: 'topRight',
       timeout: 2000,
     });
+    loaderEl.classList.add('is-hidden');
     return;
   }
   currentPage = 1;
@@ -61,6 +62,12 @@ async function onSearchFormSubmit(event) {
         totalHits <= currentPage * perPage
       ) {
         loadMoreBtnEl.classList.add('is-hidden');
+        iziToast.show({
+          message: "We're sorry, but you've reached the end of search results.",
+          position: 'topRight',
+          timeout: 2000,
+          color: 'red',
+        });
       } else {
         loadMoreBtnEl.classList.remove('is-hidden');
       }
