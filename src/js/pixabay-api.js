@@ -17,9 +17,7 @@ export const fetchPhotosByQuery = async (query, page = 1, perPage = 15) => {
 
   try {
     const response = await axios.get(`${BASE_URL}?${searchParams}`);
-    if (response.status !== 200) {
-      throw new Error(response.statusText);
-    }
+
     return response.data;
   } catch (error) {
     console.log(error);
