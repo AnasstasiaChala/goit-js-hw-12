@@ -97,6 +97,9 @@ async function onLoadMoreClick() {
       currentPage,
       perPage
     );
+    const newMarkup = createMarkupItem(imagesData.hits);
+    galleryEl.insertAdjacentHTML('beforeend', newMarkup);
+    lightbox.refresh();
     if (imagesData.hits.length === 0 || totalHits <= currentPage * perPage) {
       iziToast.show({
         message: "We're sorry, but you've reached the end of search results.",
