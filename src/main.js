@@ -97,10 +97,12 @@ async function onLoadMoreClick() {
       currentPage,
       perPage
     );
+
     const newMarkup = createMarkupItem(imagesData.hits);
     galleryEl.insertAdjacentHTML('beforeend', newMarkup);
     lightbox.refresh();
-    if (imagesData.hits.length === 0 || totalHits <= currentPage * perPage) {
+    loadMoreBtnEl.classList.remove('is-hidden');
+    if (totalHits <= currentPage * perPage) {
       iziToast.show({
         message: "We're sorry, but you've reached the end of search results.",
         position: 'topRight',
@@ -108,19 +110,14 @@ async function onLoadMoreClick() {
         color: 'red',
       });
       loadMoreBtnEl.classList.add('is-hidden');
-    } else {
-      const newMarkup = createMarkupItem(imagesData.hits);
-      galleryEl.insertAdjacentHTML('beforeend', newMarkup);
-      lightbox.refresh();
-      loadMoreBtnEl.classList.remove('is-hidden');
-
-      const { height: cardHeight } =
-        galleryEl.firstElementChild.getBoundingClientRect();
-      window.scrollBy({
-        top: cardHeight * 2,
-        behavior: 'smooth',
-      });
     }
+
+    const { height: cardHeight } =
+      galleryEl.firstElementChild.getBoundingClientRect();
+    window.scrollBy({
+      top: cardHeight * 2,
+      behavior: 'smooth',
+    });
   } catch (error) {
     console.error(error);
     iziToast.error({
